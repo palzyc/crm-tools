@@ -9,13 +9,17 @@ public class SqlColumn {
 	public String name;
 	public String nameZh;
 	public String remark;
-	
+
 	@One(target = SqlContent.class, field = "contendId")
 	public SqlContent sql;
 	public long contendId;
 
 	public SqlColumn() {
 		super();
+	}
+
+	public SqlColumn(String name) {
+		this.name = name;
 	}
 
 	public SqlColumn(String name, String nameZh, String remark) {

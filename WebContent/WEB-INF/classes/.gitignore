@@ -1,9 +1,5 @@
-/org
-/utils
 /model
-/DepartmentInfo.class
-/DepartmentInfoService.class
-/UserInfo.class
-/UserInfoService.class
-/demo
-/log4j.properties
+/net
+/org
+/test
+/utils

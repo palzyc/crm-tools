@@ -3,6 +3,9 @@ package org.nutz.service;
 import org.nutz.dao.Cnd;
 import org.nutz.dao.Dao;
 import org.nutz.dao.entity.EntityField;
+import org.nutz.dao.impl.NutDao;
+
+import utils.TestUtils;
 
 public abstract class IdEntityService<T> extends EntityService<T> {
 
@@ -16,6 +19,11 @@ public abstract class IdEntityService<T> extends EntityService<T> {
 
     public IdEntityService(Dao dao, Class<T> entityType) {
         super(dao, entityType);
+    }
+    
+    @Override
+    public Dao dao() {
+    	return new NutDao(TestUtils.getDataSource());  //TODO
     }
 
     public T fetch(long id) {

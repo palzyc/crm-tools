@@ -1,82 +1,110 @@
 package model;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.nutz.dao.Sqls;
 import org.nutz.dao.entity.annotation.ColDefine;
 import org.nutz.dao.entity.annotation.Column;
 import org.nutz.dao.entity.annotation.Id;
 import org.nutz.dao.entity.annotation.Many;
 import org.nutz.dao.entity.annotation.ManyMany;
 import org.nutz.dao.entity.annotation.Table;
-import org.nutz.dao.impl.NutDao;
-
-import utils.TestUtils;
+import org.nutz.dao.sql.Sql;
+import org.nutz.dao.sql.SqlCallback;
+import org.nutz.lang.Strings;
+import org.nutz.service.IdEntityService;
 
 @Table("sql_content")
-public class SqlContent {
+public class SqlContent extends IdEntityService<SqlContent> {
 	@Id
 	public long contendId;
 	@Column
-	public String name;
+	private String name;
 	@Column
 	@ColDefine(width = 4000)
-	public String content;
+	private String content;
 
-	@Many(target = test_parent_child_rel.class, field = "contendId")
-	public List<test_parent_child_rel> columns;
+	@Many(target = SqlColumn.class, field = "contendId")
+	private List<SqlColumn> columns;
 
 	@ManyMany(target = SqlGroup.class, relation = "t_content_group", from = "contendId", to = "groupId")
-	public List<SqlGroup> groups;
+	private List<SqlGroup> groups;
 
-	public Map<String, Object> params;
-	public Map<String, Object> vars;
-	
-	public static void main(String[] args) {
-		NutDao dao = new NutDao(TestUtils.getDataSource());
-		dao.create(test_parent_child_rel.class, true);
-		dao.create(SqlContent.class, true);
-		dao.create(SqlGroup.class, true);
-//		 testContent(dao);
+	// public Map<String, Object> params;
+	// public Map<String, Object> vars;
 
-		testGroup(dao);
+	public String getName() {
+		return name;
 	}
 
-	private static void testContent(NutDao dao) {
-		List<test_parent_child_rel> cols = new ArrayList<>();
-		 cols.add(new test_parent_child_rel("AA", "测试1", ""));
-		 cols.add(new test_parent_child_rel("BB", "测试2", ""));
-		 cols.add(new test_parent_child_rel("CC", "测试3", ""));
-		 cols.add(new test_parent_child_rel("DD", "测试4", ""));
-		 SqlContent bean = new SqlContent();
-		 bean.columns = cols;
-		 bean.content = ("select * from person");
-		 dao.insertWith(bean, "columns");
-		
-		 SqlContent b = dao.fetchLinks(dao.fetch(SqlContent.class, 1), "columns");
-		 System.out.println(b);
-		
-		 test_parent_child_rel col = dao.fetch(test_parent_child_rel.class, 1);
-		 System.out.println(col);
-		 test_parent_child_rel col2 = dao.fetchLinks(col, "sql");
-		 System.out.println(col2);
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	private static void testGroup(NutDao dao) {
-		List<test_parent_child_rel> cols = new ArrayList<>();
-		cols.add(new test_parent_child_rel("AA", "测试1", ""));
-		cols.add(new test_parent_child_rel("BB", "测试2", ""));
-		List<SqlGroup> groups = new ArrayList<>();
-		groups.add(new SqlGroup("张宇骢"));
-		groups.add(new SqlGroup("张宇骢2"));
-		
-		SqlContent bean = new SqlContent();
-		bean.columns = cols;
-		bean.name = "测试查询";
-		bean.content = ("select * from person");
-		bean.groups = groups;
-		
-		dao.insertWith(bean, null);
+	public String getContent() {
+		return content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
+	}
+
+	public List<SqlColumn> getColumns() {
+		return columns;
+	}
+
+	public void setColumns(List<SqlColumn> columns) {
+		this.columns = columns;
+	}
+
+	public List<SqlGroup> getGroups() {
+		return groups;
+	}
+
+	public void setGroups(List<SqlGroup> groups) {
+		this.groups = groups;
+	}
+
+	public void exec(long id, Map<String, Object> params, Map<String, Object> vars) {
+		final SqlContent con = dao().fetch(SqlContent.class, id);
+		Sql sql = Sqls.create(con.getContent());
+		sql.vars().putAll(vars);
+		sql.params().putAll(params);
+		sql.setCallback(new SqlCallback() {
+			public Object invoke(Connection conn, ResultSet rs, Sql sql) throws SQLException {
+				whenFirstExecSql(con, rs);
+				return null;
+			}
+			
+			private void whenFirstExecSql(final SqlContent cont, ResultSet rs) throws SQLException {
+				// 第一次执行SQL时，生成列信息
+				if (cont.getColumns() == null || cont.getColumns().size() == 0) {
+					ResultSetMetaData rsMeta = rs.getMetaData();
+					int columnCount = rsMeta.getColumnCount();
+					List<SqlColumn> cols = new ArrayList<>();
+					for (int i = 0; i < columnCount; i++) {
+						String colName = Strings.isEmpty(rsMeta.getColumnName(i + 1)) ? rsMeta.getColumnLabel(i + 1) : rsMeta.getColumnName(i + 1);
+						SqlColumn col = new SqlColumn(colName);
+						cols.add(col);
+					}
+					cont.setColumns(cols);
+					dao().insertLinks(cont, "columns");
+				}
+			}
+		});
+		dao().execute(sql);
+	}
+
+	public void save(String name, String content) {
+		SqlContent c = new SqlContent();
+		c.setColumns(columns);
+		c.setContent(content);
+		dao().insertWith(c, null);
 	}
 }
