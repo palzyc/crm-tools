@@ -18,5 +18,4 @@ public class SqlGroup {
 	public SqlGroup(String name) {
 		this.name = name;
 	}
-
 }
