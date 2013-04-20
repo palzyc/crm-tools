@@ -1,7 +1,9 @@
-package model;
+package vo;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import model.SqlColumn;
 
 public class SqlResult {
 

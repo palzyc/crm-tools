@@ -11,6 +11,7 @@ import org.nutz.dao.Dao;
 import org.nutz.dao.impl.NutDao;
 
 import utils.TestUtils;
+import vo.SqlResult;
 
 public class SqlContentTest {
 

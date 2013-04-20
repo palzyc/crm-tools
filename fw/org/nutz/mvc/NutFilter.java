@@ -79,9 +79,7 @@ public class NutFilter implements Filter {
         HttpServletResponse response = (HttpServletResponse)resp;
         try {
             if (sp != null)
-                req = sp.filter(request,
-                                response,
-                                Mvcs.getServletContext());
+            	req = sp.filter(request, response, Mvcs.getServletContext());
             if (needRealName && skipMode) {
                 // 直接无视自己的名字!!到容器取nutzservlet的名字!!
                 Enumeration<String> names = Mvcs.getServletContext().getAttributeNames();

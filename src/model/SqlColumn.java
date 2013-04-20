@@ -17,7 +17,6 @@ public class SqlColumn {
 	// @One(target = SqlContent.class, field = "contendId")
 	public long contendId;
 
-
 	public SqlColumn() {
 		super();
 	}

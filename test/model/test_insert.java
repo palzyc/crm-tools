@@ -51,7 +51,7 @@ public class test_insert {
 		bean.columns =(cols);
 		bean.name =("测试查询");
 		bean.content =("select * from person");
-		bean.groups =(groups);
+//		bean.groups =(groups);
 
 		dao.insertWith(bean, null);
 	}

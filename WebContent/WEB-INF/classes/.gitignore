@@ -1,4 +1,10 @@
 /common
+/controller
+/dao.js
+/log4j.properties
 /model
+/nutz-aop-0.1.xsd
+/nutz-ioc-0.1.xsd
 /org
 /utils
+/vo

@@ -9,6 +9,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
+import org.nutz.dao.Dao;
 import org.nutz.dao.Sqls;
 import org.nutz.dao.entity.annotation.ColDefine;
 import org.nutz.dao.entity.annotation.Column;
@@ -18,12 +19,17 @@ import org.nutz.dao.entity.annotation.ManyMany;
 import org.nutz.dao.entity.annotation.Table;
 import org.nutz.dao.sql.Sql;
 import org.nutz.dao.sql.SqlCallback;
+import org.nutz.ioc.loader.annotation.IocBean;
 import org.nutz.service.IdEntityService;
+
+import vo.SqlResult;
 
 import common.Const;
 
 @Table("sql_content")
+@IocBean(fields = {"dao"})
 public class SqlContent extends IdEntityService<SqlContent>{
+	
 	@Id
 	public long contendId;
 	@Column
@@ -37,12 +43,17 @@ public class SqlContent extends IdEntityService<SqlContent>{
 
 	@ManyMany(target = SqlGroup.class, relation = "t_content_group", from = "contendId", to = "groupId")
 	public List<SqlGroup> groups;
+	
+//	@ManyMany(target = User.class, relation = "t_sqls_user", from = "contendId", to = "userId")
+//	public List<User> users;
 
-	// public Map<String, Object> params;
-	// public Map<String, Object> vars;
 
 	public SqlContent() {
 		super();
+	}
+
+	public SqlContent(Dao dao) {
+		super(dao);
 	}
 
 	public SqlResult exec(long id, Map<String, Object> params, Map<String, Object> vars) {

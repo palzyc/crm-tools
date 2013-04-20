@@ -21,10 +21,10 @@ public abstract class IdEntityService<T> extends EntityService<T> {
         super(dao, entityType);
     }
     
-    @Override
-    public Dao dao() {
-    	return new NutDao(TestUtils.getDataSource());  //TODO
-    }
+//    @Override
+//    public Dao dao() {
+//    	return new NutDao(TestUtils.getDataSource());  //TODO
+//    }
 
     public T fetch(long id) {
         return dao().fetch(getEntityClass(), id);
