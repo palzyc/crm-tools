@@ -1,5 +1,8 @@
 package controller;
 
+import java.io.IOException;
+
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import model.User;
@@ -24,10 +27,10 @@ public class UserController {
 	
 	@At("/login")
 	@Ok("jsp:jsp/desktop")
-	public void login(@Param("name") String name, @Param("pwd") String password, HttpSession session){
+	public void login(@Param("name") String name, @Param("pwd") String password, HttpSession session, HttpServletResponse resp) throws IOException{
 		User u = user_sv.fetch(Cnd.where("loginName", "=", name).and("password", "=", password));
 		if (null == u)
-			throw new RuntimeException("Error username or password");
+			resp.sendRedirect("index.jsp");
 		session.setAttribute(Const.SESSIONKEY_LOGIN_USER, u);
 	}
 }

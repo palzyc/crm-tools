@@ -2,7 +2,7 @@
 <%@ include file="/common/taglibs.jsp" %>
 <div id="leftbar" class="yui-b">
 		<a class="a_left" href="${ctx}/">首页</a>
-		<a class="a_left" href="${ctx}/page1.html">page1</a>
+		<a class="a_left" href="${ctx}/sqlcont/add">添加SQL</a>
 		<a class="a_left" href="${ctx}/page2.html">page2</a>
         <!--  
 		<a href="${ctx}/jmx/jmx-client.action">JMX演示</a>

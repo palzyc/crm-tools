@@ -104,10 +104,8 @@ public class SqlContent extends BaseModel<SqlContent>{
 
 	public void save(String name, String content) {
 		SqlContent c = new SqlContent();
-		c.columns = columns;
+		c.name = name;
 		c.content = content;
-		
-		dao().insertWith(c, null);
 		SqlLiteral literal = new SqlLiteral().valueOf(content);
 		List<SqlVar> varTmp = new ArrayList<>();
 		List<SqlParam> paramTmp = new ArrayList<>();
