@@ -1,0 +1,2 @@
+org/nutz/dao/impl/EntityOperator.java      反射设置BaseModel的created updated字段
+org/nutz/dao/impl/sql/SqlLiteral.java      方法改为public，供解析SQL得到param和var

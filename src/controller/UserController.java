@@ -23,7 +23,7 @@ public class UserController {
 	private User user_sv;
 	
 	@At("/login")
-	@Ok("jsp:jsp/sqls/sql_query")
+	@Ok("jsp:jsp/desktop")
 	public void login(@Param("name") String name, @Param("pwd") String password, HttpSession session){
 		User u = user_sv.fetch(Cnd.where("loginName", "=", name).and("password", "=", password));
 		if (null == u)

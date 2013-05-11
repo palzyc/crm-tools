@@ -8,7 +8,7 @@ import org.nutz.lang.Strings;
  * @author zozoh
  * @author wendal(wendal1985@gmail.com)
  */
-class SqlLiteral implements Cloneable {
+public class SqlLiteral implements Cloneable {
 
     WorkingStack stack;
 
@@ -27,11 +27,11 @@ class SqlLiteral implements Cloneable {
         // statementIndexes = new VarIndexImpl();
     }
 
-    VarIndex getVarIndexes() {
+    public VarIndex getVarIndexes() {
         return varIndexes;
     }
 
-    VarIndex getParamIndexes() {
+    public VarIndex getParamIndexes() {
         return paramIndexes;
     }
 
@@ -50,7 +50,7 @@ class SqlLiteral implements Cloneable {
      * @param str
      * @return SqlLiteral
      */
-    SqlLiteral valueOf(String str) {
+    public SqlLiteral valueOf(String str) {
         reset();
         // int statementIndex = 1;
         source = str;

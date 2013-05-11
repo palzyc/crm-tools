@@ -1,8 +1,12 @@
 package org.nutz.dao.impl;
 
+import java.lang.reflect.Field;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+import model.BaseModel;
 
 import org.nutz.dao.Chain;
 import org.nutz.dao.Condition;
@@ -18,6 +22,8 @@ import org.nutz.lang.Each;
 import org.nutz.lang.ExitLoop;
 import org.nutz.lang.Lang;
 import org.nutz.lang.LoopException;
+import org.springframework.util.ReflectionUtils;
+
 
 public class EntityOperator {
 
@@ -157,6 +163,7 @@ public class EntityOperator {
             return null;
 
         int len = Lang.length(obj);
+        BaseModel.setModelTime(obj);
         List<Pojo> re = new ArrayList<Pojo>(len);
         if (len > 0) {
             if (len == 1) {
@@ -172,6 +179,8 @@ public class EntityOperator {
         }
         return re;
     }
+
+
 
     public Pojo addInsertSelfOnly() {
         return addInsertSelfOnly(entity, myObj);

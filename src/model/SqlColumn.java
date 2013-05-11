@@ -4,9 +4,8 @@ import org.nutz.dao.entity.annotation.Column;
 import org.nutz.dao.entity.annotation.Id;
 import org.nutz.dao.entity.annotation.One;
 
-public class SqlColumn {
-	@Id
-	public long columnId;
+public class SqlColumn extends BaseModel<SqlColumn> {
+
 	@Column
 	public String name;
 	@Column
@@ -14,7 +13,6 @@ public class SqlColumn {
 	@Column
 	public String remark;
 	@Column
-	// @One(target = SqlContent.class, field = "contendId")
 	public long contendId;
 
 	public SqlColumn() {
@@ -27,6 +25,6 @@ public class SqlColumn {
 	}
 
 	public String toString() {
-		return "SqlColumn [columnId=" + columnId + ", name=" + name + ", nameZh=" + nameZh + ", remark=" + remark + ", contendId=" + contendId + "]";
+		return "SqlColumn [columnId=" + id + ", name=" + name + ", nameZh=" + nameZh + ", remark=" + remark + ", contendId=" + contendId + "]";
 	}
 }

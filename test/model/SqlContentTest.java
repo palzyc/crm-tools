@@ -33,7 +33,7 @@ public class SqlContentTest {
 		bean.content =("select t.userinfoid 主键, t.truename 姓名, addDate 添加时间, addIp from userinfo t");
 		bean.name =("测试");
 		SqlContent res = dao.insertWith(bean, null);
-		bean.exec(res.contendId, null, null);
+		bean.exec(res.id, null, null);
 	}
 
 	public static void main(String[] args) {

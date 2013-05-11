@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@include file="/WEB-INF/jsp/head.jsp"%>
+<%@ include file="/common/header.jsp" %>
 <h1登陆</h1>
 <br><br>
 <form action="${base}/login" method="POST">
@@ -18,4 +18,4 @@
 	</tr>
 </table>
 </form>
-<%@include file="/WEB-INF/jsp/tail.jsp"%>
+<%@ include file="/common/footer.jsp" %>

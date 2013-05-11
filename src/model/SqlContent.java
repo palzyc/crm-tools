@@ -5,7 +5,6 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -15,12 +14,11 @@ import org.nutz.dao.entity.annotation.ColDefine;
 import org.nutz.dao.entity.annotation.Column;
 import org.nutz.dao.entity.annotation.Id;
 import org.nutz.dao.entity.annotation.Many;
-import org.nutz.dao.entity.annotation.ManyMany;
 import org.nutz.dao.entity.annotation.Table;
+import org.nutz.dao.impl.sql.SqlLiteral;
 import org.nutz.dao.sql.Sql;
 import org.nutz.dao.sql.SqlCallback;
 import org.nutz.ioc.loader.annotation.IocBean;
-import org.nutz.service.IdEntityService;
 
 import vo.SqlResult;
 
@@ -28,10 +26,8 @@ import common.Const;
 
 @Table("sql_content")
 @IocBean(fields = {"dao"})
-public class SqlContent extends IdEntityService<SqlContent>{
+public class SqlContent extends BaseModel<SqlContent>{
 	
-	@Id
-	public long contendId;
 	@Column
 	public String name;
 	@Column
@@ -41,9 +37,18 @@ public class SqlContent extends IdEntityService<SqlContent>{
 	@Many(target = SqlColumn.class, field = "contendId")
 	public List<SqlColumn> columns;
 
-	@ManyMany(target = SqlGroup.class, relation = "t_content_group", from = "contendId", to = "groupId")
-	public List<SqlGroup> groups;
+	@Many(target = SqlParam.class, field = "contendId")
+	public List<SqlParam> params;
 	
+	@Many(target = SqlVar.class, field = "contendId")
+	public List<SqlVar> vars;
+	
+//	@ManyMany(target = SqlGroup.class, relation = "t_content_group", from = "contendId", to = "groupId")
+//	public List<SqlGroup> groups;
+//	public static int SHOW_TYPE_TABLE = 1;
+//	public static int SHOW_TYPE_FORM = 2;
+//	@Column
+//	public int showType = SHOW_TYPE_TABLE;
 //	@ManyMany(target = User.class, relation = "t_sqls_user", from = "contendId", to = "userId")
 //	public List<User> users;
 
@@ -101,6 +106,23 @@ public class SqlContent extends IdEntityService<SqlContent>{
 		SqlContent c = new SqlContent();
 		c.columns = columns;
 		c.content = content;
+		
 		dao().insertWith(c, null);
+		SqlLiteral literal = new SqlLiteral().valueOf(content);
+		List<SqlVar> varTmp = new ArrayList<>();
+		List<SqlParam> paramTmp = new ArrayList<>();
+		for (String var_ : literal.getVarIndexes().getOrders()) {
+			SqlVar e = new SqlVar();
+			e.name = var_;
+			varTmp.add(e);
+		}
+		for (String param_ : literal.getParamIndexes().getOrders()) {
+			SqlParam e = new SqlParam();
+			e.name = param_;
+			paramTmp.add(e);
+		}
+		c.vars = varTmp;
+		c.params = paramTmp;
+		dao().insertWith(c, "params|vars");
 	}
 }
