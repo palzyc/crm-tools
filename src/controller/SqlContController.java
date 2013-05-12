@@ -21,8 +21,8 @@ public class SqlContController {
 		return null;
 	}
 	
-	@At("/sqlcont/add")
-	@Ok("jsp:jsp/sql_cont/add")
+	@At("/sqlcont/index")
+	@Ok("jsp:jsp/sql_cont/index")
 	public void addSqlCont(){
 	}
 	

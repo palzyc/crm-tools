@@ -5,9 +5,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <link rel="stylesheet" type="text/css" href="css/ui.all.css"/>
-<link rel="stylesheet" type="text/css" href="css/yui.css"/>
 <link rel="stylesheet" type="text/css" href="css/style.css"/>
-<script type="text/javascript" src="${ctx}/js/jquery-1.9.1.js"></script>
+<script type="text/javascript" src="${ctx}/js/jquery-1.4.2.js"></script>
 <script type="text/javascript" src="${ctx}/js/nutz.js"></script>
 <script type="text/javascript" src="${ctx}/js/jquery-ui/jquery.ui.core.js"></script>
 <script type="text/javascript" src="${ctx}/js/jquery-ui/jquery.ui.widget.js"></script>

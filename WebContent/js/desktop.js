@@ -17,7 +17,7 @@ function addTab(src, tabName) {
 	  $div.html(data).appendTo('#tabs');
 	  $('#tabs').tabs("add", "#new-tab-" + tabCounter, tabName);
 	  tabCounter++;
-  });
+   });
 }
 function addEventHandler(event, ui) {
   var li = $(ui.tab).parent();
@@ -40,4 +40,6 @@ function addEventHandler(event, ui) {
     $("#tabs").tabs("remove", index);
     tabCounter--;
   });
+  var index = $('#tabs li').index(li.get(0));
+  $("#tabs").tabs("select", index);
 };

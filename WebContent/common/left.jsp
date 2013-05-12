@@ -1,9 +1,10 @@
 <%@ page language="java" pageEncoding="UTF-8" %>
 <%@ include file="/common/taglibs.jsp" %>
-<div id="leftbar" class="yui-b">
-		<a class="a_left" href="${ctx}/">首页</a>
-		<a class="a_left" href="${ctx}/sqlcont/add">添加SQL</a>
+<div id="leftbar" style="width: 13.8461em;">
+		<a class="a_left" href="${ctx}/sqlcont/index">SQL语句维护</a>
+		<a class="a_left" href="${ctx}/page1.html">page1</a>
 		<a class="a_left" href="${ctx}/page2.html">page2</a>
+		<a class="a_left" href="${ctx}/page3.html">page3</a>
         <!--  
 		<a href="${ctx}/jmx/jmx-client.action">JMX演示</a>
 		<a href="${ctx}/email/index.action">邮件演示</a>

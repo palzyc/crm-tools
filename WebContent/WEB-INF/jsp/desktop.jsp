@@ -9,13 +9,9 @@
 </div>
 <div id="bd">
     <%@ include file="/common/left.jsp"%>
-    <div id="tabs" style="position:relative; left: 180px; width: 80%">
+    <div id="tabs" style="left: 180px; top: -100px; width: 80%">
         <ul>
-            <li><a href="#tabs-1">One</a></li>
         </ul>
-        <div id="tabs-1">
-            <p>欢迎</p>
-        </div>
     </div>
 </div>
 <%@ include file="/common/footer.jsp" %>
