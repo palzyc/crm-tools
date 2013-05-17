@@ -22,7 +22,7 @@ public class SqlContController {
 	}
 	
 	@At("/sqlcont/index")
-	@Ok("jsp:jsp/sql_cont/index")
+	@Ok("jsp:jsp/sql_cont/index") 
 	public void addSqlCont(){
 	}
 	
