@@ -8,7 +8,7 @@ import model.SqlColumn;
 public class SqlResult {
 
 	public final List<SqlColumn> columns;
-	public List<List> lines = new ArrayList<>();
+	public List<List> lines = new ArrayList<List>();
 
 	public SqlResult(List<SqlColumn> columns) {
 		this.columns = columns;

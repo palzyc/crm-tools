@@ -75,7 +75,7 @@ public class SqlContent extends BaseModel<SqlContent>{
 					if (i > Const.PAGE_SIZE)
 						break; // TODO 暂时没有考虑分页问题
 					
-					List line = new ArrayList<>();
+					List line = new ArrayList();
 					for (int j = 0; j < cont.columns.size(); j++)
 						line.add(rs.getObject(j + 1));
 					result.addLine(line);
@@ -88,7 +88,7 @@ public class SqlContent extends BaseModel<SqlContent>{
 				if (cont.columns == null || cont.columns.size() == 0) {
 					ResultSetMetaData rsMeta = rs.getMetaData();
 					int columnCount = rsMeta.getColumnCount();
-					List<SqlColumn> cols = new ArrayList<>();
+					List<SqlColumn> cols = new ArrayList<SqlColumn>();
 					for (int i = 0; i < columnCount; i++) {
 						SqlColumn col = new SqlColumn(rsMeta.getColumnName(i + 1), rsMeta.getColumnLabel(i + 1));
 						cols.add(col);
@@ -107,8 +107,8 @@ public class SqlContent extends BaseModel<SqlContent>{
 		c.name = name;
 		c.content = content;
 		SqlLiteral literal = new SqlLiteral().valueOf(content);
-		List<SqlVar> varTmp = new ArrayList<>();
-		List<SqlParam> paramTmp = new ArrayList<>();
+		List<SqlVar> varTmp = new ArrayList<SqlVar>();
+		List<SqlParam> paramTmp = new ArrayList<SqlParam>();
 		for (String var_ : literal.getVarIndexes().getOrders()) {
 			SqlVar e = new SqlVar();
 			e.name = var_;

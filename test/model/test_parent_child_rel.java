@@ -43,7 +43,7 @@ public class test_parent_child_rel {
 		dao.create(test_parent_child_rel.class, true);
 
 		test_parent_child_rel par = new test_parent_child_rel("name", "nameZh", "remark");
-		List<test_parent_child_rel> childs = new ArrayList<>();
+		List<test_parent_child_rel> childs = new ArrayList<test_parent_child_rel>();
 		test_parent_child_rel c1 = new test_parent_child_rel("1", "1", "1");
 		test_parent_child_rel c2 = new test_parent_child_rel("2", "2", "2");
 		childs.add(c1);

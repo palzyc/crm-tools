@@ -1,4 +1,9 @@
-/model
+/common
 /controller
-/org
+/model
+/nutz-aop-0.1.xsd
+/nutz-ioc-0.1.xsd
 /nutz修改
+/org
+/utils
+/vo
